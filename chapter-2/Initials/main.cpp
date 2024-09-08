@@ -1,6 +1,6 @@
 /*****
 * Author: Glowstudent
-* Chapter 2 Exercise
+* Initials
 *****/
 
 #include <iostream>
