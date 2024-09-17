@@ -4,7 +4,8 @@
 *****/
 
 #include <iostream>
-#include<limits>
+#include <limits>
+#include <string>
 
 using namespace std;
 
