@@ -10,7 +10,7 @@ using namespace std;
 int main() {
     int length, width, area;
 
-    cout << "This program calculates the area of a rectangle.\n" << endl;
+    cout << "This program calculates the area of a rectangle.\n";
 
     cout << "What is the length of the rectangle?: ";
     cin >> length;
