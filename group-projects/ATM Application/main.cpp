@@ -36,8 +36,8 @@ int main()
 // *        User Balance: $1000.00         *
 // *                                       *
 // *          Choose One                   *
-// *          | $40          | $80         *
-// *          | $200          | $400       *
+// *      | $40          | $80             *
+// *      | $200          | $400           *
 // *                                       *
 // *                                       *
 // *  EXIT                                 *
@@ -65,6 +65,7 @@ int main()
     // Spacing
     cout << "*" << setw(screenWidth - 2) << "" << "*" << endl;
 
+    // ATM Withdrawl Options
     cout << "*" << string((screenWidth - 20) / 2, ' ') << "Choose One" << endl;
     cout << "*" << string((screenWidth - 20) / 2, ' ') << "| $40" << string((screenWidth - 20) / 2, ' ') << "| $80" << endl;
     cout << "*" << string((screenWidth - 20) / 2, ' ') << "| $200" << string((screenWidth - 20) / 2, ' ') << "| $400" << endl;
