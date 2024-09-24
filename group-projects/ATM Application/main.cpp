@@ -20,7 +20,7 @@ int main()
     float userBalance = 1000;
     float atmBalance = 500;
 
-    const int sideExtraL = ((screenWidth % 2 == 0 ? screenWidth/2 : (screenWidth + 1)/2) + 11 - (to_string(userBalance).length()));
+    const int sideExtraL = ((screenWidth % 2 == 0 ? screenWidth/2 : (screenWidth + 1)/2) - (to_string(userBalance).length()) + 15);
 
     // ATM Has $500.00
     // User has $1,000.00
