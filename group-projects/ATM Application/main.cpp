@@ -1,6 +1,8 @@
 /*****
  * Author: Glowstudent
  * ATM Application
+ * Note: Run with C++ 20
+ * Spacing might be off depending on your compiler. OnlinesGDB can freak out sometimes with string fills but my local compiler does not.
  *****/
 
 #include <iostream>
