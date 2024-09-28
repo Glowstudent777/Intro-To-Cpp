@@ -69,9 +69,13 @@ int main()
     const string title = "ATM Application";
     float userBalance = 1000;
     float atmBalance = 500;
+    float amount;
 
     string message;
     string userInput;
+
+    // Set the title of the console window
+    cout << "\033]0;" << title << "\007";
 
     // ATM Has $500.00
     // User has $1,000.00
@@ -121,7 +125,8 @@ int main()
             }
         }
 
-        float amount = stof(userInput);
+        // Convert string to float now that we know it's a valid number
+        amount = stof(userInput);
 
         while (userBalance < amount || atmBalance < amount)
         {
