@@ -23,6 +23,12 @@ void clearScreen()
 #endif
 }
 
+void exitATM(int code = 0)
+{
+    cout << "Exiting ATM Application..." << endl;
+    exit(code);
+}
+
 void printScreen(string title, float userBal, float atmBal, string message)
 {
     const int screenWidth = title.length() % 2 == 0 ? 40 : 41;
@@ -102,8 +108,7 @@ int main()
         {
             if (userInput == "EXIT")
             {
-                cout << "Exiting ATM Application..." << endl;
-                exit(0);
+                exitATM(0);
             }
             else
             {
@@ -131,8 +136,7 @@ int main()
             {
                 if (userInput == "EXIT")
                 {
-                    cout << "Exiting ATM Application..." << endl;
-                    exit(0);
+                    exitATM(0);
                 }
                 else
                 {
