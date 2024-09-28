@@ -36,7 +36,10 @@ void printScreen(string title, float userBal, float atmBal, string message)
 
     // Successfull Transaction
     cout << "*" << setw(screenWidth - 2) << "" << "*" << endl;
-    cout << "*" << setw((screenWidth - message.length()) / 2) << "" << message << setw((screenWidth - message.length()) / 2) << "*" << endl;
+    if (message.length() > 0)
+        cout << "*" << setw(((screenWidth - message.length()) / 2) - (screenWidth % 2 == 0 ? 0 : 1)) << "" << message << setw(((screenWidth - message.length()) / 2) + (message.length() % 2 == 0 ? 1 : 0)) << "*" << endl;
+    else
+        cout << "*" << setw(screenWidth - 2) << "" << "*" << endl;
     cout << "*" << setw(screenWidth - 2) << "" << "*" << endl;
 
     // ATM Withdrawl Options
