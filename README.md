@@ -64,6 +64,10 @@ There is no chapter 1, it is just an introduction to the course.
 - [Speed of Sound](chapter-4/Speed%20of%20Sound/main.cpp)
 - [Time Calculator](chapter-4/Time%20Calculator/main.cpp)
 
+## Contributing
+
+Contributions are not accepted at this time. This repository is for educational purposes only.
+
 ## License
 
 This repository is licensed under the [Apache 2.0 License](LICENSE).
