@@ -13,7 +13,7 @@ void formatTime(int days, int hours, int minutes, int seconds)
 {
     string result;
 
-    // Print with only the necessary time units
+    // Print with only the necessary time units and with proper grammar
     // 60 seconds = 1 minute
     // 61 seconds = 1 minute and 1 second
     // 3740 seconds = 1 hour, 2 minutes, and 20 seconds
