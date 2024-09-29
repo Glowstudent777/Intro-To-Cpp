@@ -9,18 +9,6 @@
 
 using namespace std;
 
-void clearScreen()
-{
-    // Clear the screen
-#if defined(_WIN32) || defined(_WIN64)
-    system("cls");
-#elif defined(__linux__)
-    system("clear");
-#elif defined(__APPLE__)
-    system("clear");
-#endif
-}
-
 int main()
 {
     string color1, color2;
@@ -32,7 +20,6 @@ int main()
 
     while (color1 != "red" && color1 != "blue" && color1 != "yellow")
     {
-        clearScreen();
         cout << "Error: Invalid color. Please enter a primary color (red, blue, yellow): ";
         getline(cin, color1);
     }
@@ -42,7 +29,6 @@ int main()
 
     while (color2 != "red" && color2 != "blue" && color2 != "yellow")
     {
-        clearScreen();
         cout << "Error: Invalid color. Please enter a primary color (red, blue, yellow): ";
         cin >> color2;
     }
