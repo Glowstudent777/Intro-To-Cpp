@@ -1,6 +1,6 @@
 /*****
  * Author: Glowstudent
- * Bad VW Application (VolksWagen)
+ * Bad VW Application
  *****/
 
 #include <iostream>
