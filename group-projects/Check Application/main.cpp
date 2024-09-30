@@ -15,11 +15,11 @@ using namespace std;
 int getCommas(double pay)
 {
 	int commas = 0;
-	while (pay > 1000)
-	{
-		pay /= 1000;
-		commas++;
-	}
+    while (pay >= 1000)
+    {
+        pay /= 1000;
+        commas++;
+    }
 	return commas;
 }
 
