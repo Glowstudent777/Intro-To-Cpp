@@ -35,7 +35,7 @@ int main()
     cout << setprecision(1) << fixed;
 
     // Numbers are averaged from highway and city MPG
-    cout << "VW Models" << endl;
+    cout << "                     VW Models" << endl;
     cout << "| Model       | MPG  | 10% Reduction | Honest MPG |" << endl;
     cout << "|-------------|------|---------------|------------|" << endl;
     cout << "| 1976 Golf   | 23   | 2.3           | " << calculateHonestMPG(23) << "       |" << endl;
@@ -47,7 +47,7 @@ int main()
     // Spacer
     cout << endl;
 
-    cout << "Chrysler/Fiat Models" << endl;
+    cout << "            Chrysler/Fiat Models" << endl;
     cout << "| Model | MPG  | 10% Reduction | Honest MPG |" << endl;
     cout << "|-------|------|---------------|------------|" << endl;
     cout << "| 200   | 23.6 | 2.36          | " << calculateHonestMPG(23.6) << "       |" << endl;
