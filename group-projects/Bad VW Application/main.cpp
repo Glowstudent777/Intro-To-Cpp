@@ -9,31 +9,9 @@
 
 using namespace std;
 
-class Vehicle
+float calculateHonestMPG(float mpg)
 {
-public:
-    string model;
-    float mpg;
-    float reduction = 0;
-    float honestMpg = 0;
-};
-
-void displayTable(const string titles[], Vehicle models[])
-{
-    // Find the longest string in each column and store the length for formatting
-
-    int columns = 0;
-    while (!titles[columns].empty())
-    {
-        columns++;
-    }
-
-    for (int i = 0; i < columns; i++)
-    {
-        cout << setw(15) << titles[i];
-    }
-
-    cout << columns << endl;
+    return mpg - (mpg * 0.10);
 }
 
 int main()
@@ -54,44 +32,29 @@ int main()
     // | Beetle| 25  | 2.5           | 22.5       |
     // | Jeep  | 20  | 2             | 18         |
 
-    string titles[4] = {"Model", "MPG", "10% Reduction", "Honest MPG"};
+    cout << setprecision(1) << fixed;
 
-    // array of VW models
-    Vehicle vwModels[3] = {
-        {"Golf", 30},
-        {"Beetle", 25},
-        {"Jeep", 20}};
-
-    // array of Chrysler/Fiat models
-    Vehicle chryslerFiatModels[3] = {
-        {"200", 30},
-        {"300", 25},
-        {"Jeep", 20}};
-
-    // Display the table
-    displayTable(titles, vwModels);
-
-    // Spacer
-    cout << endl;
-    cout << endl;
-
-    // Display the table
+    // Numbers are averaged from highway and city MPG
     cout << "VW Models" << endl;
-    cout << "| Model  | MPG | 10% Reduction | Honest MPG |" << endl;
-    cout << "|--------|-----|---------------|------------|" << endl;
-    cout << "| Golf   | 30  | 3             | 27         |" << endl;
-    cout << "| Beetle | 25  | 2.5           | 22.5       |" << endl;
-    cout << "| Jeep   | 20  | 2             | 18         |" << endl;
+    cout << "| Model       | MPG  | 10% Reduction | Honest MPG |" << endl;
+    cout << "|-------------|------|---------------|------------|" << endl;
+    cout << "| 1976 Golf   | 23   | 2.3           | " << calculateHonestMPG(23) << "       |" << endl;
+    cout << "| 1974 Beetle | 20   | 2             | " << calculateHonestMPG(20) << "       |" << endl;
+    cout << "| Atlas       | 20.5 | 2.05          | " << calculateHonestMPG(20.5) << "       |" << endl;
+    cout << "| 2022 Jetta  | 35.3 | 3.53          | " << calculateHonestMPG(35.3) << "       |" << endl;
+    cout << "| Passat      | 24.8 | 2.48          | " << calculateHonestMPG(24.8) << "       |" << endl;
 
     // Spacer
     cout << endl;
 
     cout << "Chrysler/Fiat Models" << endl;
-    cout << "| Model  | MPG | 10% Reduction | Honest MPG |" << endl;
-    cout << "|--------|-----|---------------|------------|" << endl;
-    cout << "| 200    | 30  | 3             | 27         |" << endl;
-    cout << "| 300    | 25  | 2.5           | 22.5       |" << endl;
-    cout << "| Jeep   | 20  | 2             | 18         |" << endl;
+    cout << "| Model | MPG  | 10% Reduction | Honest MPG |" << endl;
+    cout << "|-------|------|---------------|------------|" << endl;
+    cout << "| 200   | 23.6 | 2.36          | " << calculateHonestMPG(23.6) << "       |" << endl;
+    cout << "| 300   | 20   | 2             | " << calculateHonestMPG(20) << "       |" << endl;
+    cout << "| 500x  | 28.7 | 2.87          | " << calculateHonestMPG(28.7) << "       |" << endl;
+    cout << "| Neon  | 21.4 | 2.14          | " << calculateHonestMPG(21.4) << "       |" << endl;
+    cout << "| Bravo | 22.5 | 2.25          | " << calculateHonestMPG(22.5) << "       |" << endl;
 
     return 0;
 }
