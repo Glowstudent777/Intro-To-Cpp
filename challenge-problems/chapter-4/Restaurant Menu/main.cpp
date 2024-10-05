@@ -7,8 +7,12 @@
 #include <limits>
 #include <iomanip>
 #include <string>
+#include <map>
 
-#include <cctype>
+// Future tolower or character input validation
+// #include <cctype>
+
+// Random number generation
 #include <random>
 
 using namespace std;
@@ -16,9 +20,13 @@ using namespace std;
 // Should never see this. Used in the default section of the switch statements.
 string errormsg = "There was an error. Please try again.";
 
+// Vector lets us store the order without knowing the size of the array ahead of time.
+vector<int> order;
+// Map lets us store the count of each item ordered.
+map<int, int> itemCount;
+
 // Let the other functions see these before the full logic function is implemented.
-void getInt(int &choice, int program, int min, int max, bool clearOnFail);
-void getChar(char &input, int program, bool clearOnFail);
+void getInt(int &input, int program, int min, int max, string cmessage, bool clearOnFail);
 void printMenu(int choice);
 
 void Weekdays();
@@ -37,14 +45,137 @@ void clearScreen()
 #endif
 }
 
+// Code is from the example on https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution
+// Just modified to use min/max instead of 1.0 and 2.0
+// Commented with my understanding of each line
 void randomPrice(float &price, float min, float max)
 {
+    // References for future reference:
+    // https://en.cppreference.com/w/cpp/numeric/random/random_device
+    // https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
+    // https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution
+
+    // Apparently it can generate the same number sequences so it should be used as a seeder rather than just a random number generator
+    // Used to seed the random number generator
     random_device rd;
+
+    // The random number generator seeded with rd
+    // mt19937 is a apparently called a "Standard Mersenne Twister Engine"
+    // Less secure than a crypto co4814 but still we're not doing security here and still passes randomness tests
     mt19937 gen(rd());
 
+    // The distribution of the random number generator
+    // <float> so we get a float otherwise it will default to a double if left empty
     uniform_real_distribution<float> dis(min, max);
 
+    // times 100 and divided by 100 just truncates the float to 2 decimal places
+    // dis(gen) generates a random number between min and max
     price = floorf(dis(gen) * 100) / 100;
+}
+
+void printBill(float total, int menu)
+{
+
+    float tax = total * 0.0825;
+
+    for (int item : order)
+    {
+        itemCount[item]++;
+    }
+
+    cout << "--------------------------------" << endl;
+
+    // Show number of each item ordered
+    for (const auto &entry : itemCount)
+    {
+        switch (menu)
+        {
+        case 1:
+            switch (entry.first)
+            {
+            case 1:
+                cout << "Fish: " << entry.second << " ordered" << endl;
+                break;
+            case 2:
+                cout << "Sirlion Steak: " << entry.second << " ordered" << endl;
+                break;
+            case 3:
+                cout << "King Crab: " << entry.second << " ordered" << endl;
+                break;
+            case 4:
+                cout << "Water: " << entry.second << " ordered" << endl;
+                break;
+            case 5:
+                cout << "Wine: " << entry.second << " ordered" << endl;
+                break;
+            case 6:
+                cout << "Beer: " << entry.second << " ordered" << endl;
+                break;
+            default:
+                cout << "Unknown item ordered" << endl;
+                break;
+            }
+            break;
+        case 2:
+            switch (entry.first)
+            {
+            case 1:
+                cout << "Lobster: " << entry.second << " ordered" << endl;
+                break;
+            case 2:
+                cout << "Ribeye: " << entry.second << " ordered" << endl;
+                break;
+            case 3:
+                cout << "3oz Wagyu Beef: " << entry.second << " ordered" << endl;
+                break;
+            case 4:
+                cout << "Water: " << entry.second << " ordered" << endl;
+                break;
+            case 5:
+                cout << "Wine: " << entry.second << " ordered" << endl;
+                break;
+            case 6:
+                cout << "Old Fashioned: " << entry.second << " ordered" << endl;
+                break;
+            default:
+                cout << "Unknown item ordered" << endl;
+                break;
+            }
+            break;
+        case 3:
+            switch (entry.first)
+            {
+            case 1:
+                cout << "Smoked Ribs: " << entry.second << " ordered" << endl;
+                break;
+            case 2:
+                cout << "Lobster: " << entry.second << " ordered" << endl;
+                break;
+            case 3:
+                cout << "Filet Mignon: " << entry.second << " ordered" << endl;
+                break;
+            case 4:
+                cout << "Water: " << entry.second << " ordered" << endl;
+                break;
+            case 5:
+                cout << "Wine: " << entry.second << " ordered" << endl;
+                break;
+            case 6:
+                cout << "Rip Van Winkle: " << entry.second << " ordered" << endl;
+                break;
+            default:
+                cout << "Unknown item ordered" << endl;
+                break;
+            }
+            break;
+        }
+    }
+
+    cout << "--------------------------------" << endl;
+    cout << "Subtotal: $" << total << endl;
+    cout << "Tax:      $" << tax << endl;
+    cout << "--------------------------------" << endl;
+    cout << "Total:    $" << total + tax << endl;
 }
 
 void printMenu(int choice)
@@ -63,60 +194,47 @@ void printMenu(int choice)
         // Charge for water because we're fancy assholes
         cout << "== Food ==                      == Drinks ==" << endl;
         cout << "1. Fish           - $29.99      4. Water - $1.00" << endl;
-        cout << "2. Sirlion Steak  - $44.99      5. Wine  - $7.00" << endl;
-        cout << "3. King Crab      - *MK         6. Beer  - $12.00" << endl;
+        cout << "2. Sirlion Steak  - $44.99      5. Wine  - $12.00" << endl;
+        cout << "3. King Crab      - *MK         6. Beer  - $10.00" << endl;
         break;
     case 2:
         cout << "== Saturday Menu ==" << endl;
         cout << endl;
         cout << "== Food ==                       == Drinks ==" << endl;
-        cout << "1. Lobster         - *MK         4. Water            - $1.00" << endl;
-        cout << "2. Ribeye          - $75.00      5. Wine             - $7.00" << endl;
-        cout << "3. 3oz Wagyu Beef  - $89.99      6.   - $44.99" << endl;
+        cout << "1. Lobster         - *MK         4. Water          - $1.00" << endl;
+        cout << "2. Ribeye          - $75.00      5. Wine           - $12.00" << endl;
+        cout << "3. 3oz Wagyu Beef  - $89.99      6. Old Fashioned  - $20.99" << endl;
         break;
     case 3:
         cout << "== Sunday Menu ==" << endl;
         cout << endl;
         cout << "== Food ==                     == Drinks ==" << endl;
-        cout << "1. Ribs          - $25.00      4. Water            - $1.00" << endl;
-        cout << "2. Lobster       - *MK         5. Wine             - $7.00" << endl;
-        cout << "3. Filet Mignon  - $75.00      6. Whiskey (Pappy)  - $44.99" << endl;
+        cout << "1. Smoked Ribs   - $25.00      4. Water            - $1.00" << endl;
+        cout << "2. Lobster       - *MK         5. Wine             - $12.00" << endl;
+        cout << "3. Filet Mignon  - $75.00      6. Rip Van Winkle   - $44.99" << endl;
         break;
     default:
         clearScreen();
         printMenu(0);
-        getInt(choice, 0, 1, 3, true);
+        getInt(choice, 0, 1, 3, "", true);
         break;
     }
 }
 
 // Later maybe add min/max optional to just get an int no matter what
-// Later maybe add string cmessage for a custom message other than "Enter your choice: "
-void getInt(int &input, int program, int min, int max, bool clearOnFail = false)
+void getInt(int &input, int program, int min, int max, string cmessage = "", bool clearOnFail = false)
 {
-    cout << "Enter your choice: ";
+    if (cmessage != "")
+    {
+        cout << cmessage;
+    }
+    else
+    {
+        cout << "Enter your choice: ";
+    }
     cin >> input;
 
     while (cin.fail() || input < min || input > max)
-    {
-        if (clearOnFail == true)
-        {
-            clearScreen();
-            printMenu(program);
-        }
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid Input. Please enter a valid input: ";
-        cin >> input;
-    }
-}
-
-void getChar(char &input, int program, bool clearOnFail = false)
-{
-    cout << "Enter your choice: ";
-    cin >> input;
-
-    while (cin.fail() || !isalpha(input))
     {
         if (clearOnFail == true)
         {
@@ -137,7 +255,7 @@ int main()
     clearScreen();
     printMenu(0);
 
-    getInt(choice, 0, 1, 4, true);
+    getInt(choice, 0, 1, 4, "", true);
 
     // Set the stage for the programs
     clearScreen();
@@ -168,7 +286,7 @@ int main()
 void Weekdays()
 {
     int input;
-    float mk;
+    float mk, total = 0.00;
 
     randomPrice(mk, 50.00, 100.00);
 
@@ -182,21 +300,57 @@ void Weekdays()
 void Saturday()
 {
     int input;
-    float mk;
+    float mk, tax, total = 0.00;
 
     randomPrice(mk, 50.00, 100.00);
 
     printMenu(2);
     cout << "*Current MK is: " << mk << endl;
-    getInt(input, 2, 1, 6);
+    getInt(input, 2, 0, 6, "Add item or press 0 to finish: ");
 
-    cout << "You selected: " << input << endl;
+    while (input != 0)
+    {
+        switch (input)
+        {
+        case 1:
+            total += mk;
+            order.push_back(1);
+            break;
+        case 2:
+            total += 75.00;
+            order.push_back(2);
+            break;
+        case 3:
+            total += 89.99;
+            order.push_back(3);
+            break;
+        case 4:
+            total += 1.00;
+            order.push_back(4);
+            break;
+        case 5:
+            total += 12.00;
+            order.push_back(5);
+            break;
+        case 6:
+            total += 20.99;
+            order.push_back(6);
+            break;
+        default:
+            cout << errormsg << endl;
+            break;
+        }
+
+        getInt(input, 2, 0, 6, "Add more or press 0 to finish: ");
+    }
+
+    printBill(total, 2);
 }
 
 void Sunday()
 {
     int input;
-    float mk;
+    float mk, total = 0.00;
 
     randomPrice(mk, 50.00, 100.00);
 
