@@ -9,9 +9,6 @@
 #include <string>
 #include <map>
 
-// Future tolower or character input validation
-// #include <cctype>
-
 // Random number generation
 #include <random>
 
@@ -77,7 +74,11 @@ void printBill(float total, int menu)
 {
 
     float tax = total * 0.0825;
+    tax = floorf(tax * 100) / 100;
 
+    // Maps are very useful but a bit confusing in C++
+    // https://en.cppreference.com/w/cpp/container/map
+    // https://cplusplus.com/reference/map/map/
     for (int item : order)
     {
         itemCount[item]++;
@@ -178,6 +179,7 @@ void printBill(float total, int menu)
     cout << "Total:    $" << total + tax << endl;
 }
 
+// I would prefer a dynamic menu for easier changes but due to time constraints I'm going to hard code the menus
 void printMenu(int choice)
 {
     switch (choice)
@@ -291,7 +293,7 @@ void Weekdays()
     randomPrice(mk, 50.00, 100.00);
 
     printMenu(1);
-    cout << "*Current MK is: " << mk << endl;
+    cout << "* Current MK is: " << mk << endl;
     getInt(input, 1, 1, 6);
 
     cout << "You selected: " << input << endl;
@@ -305,7 +307,7 @@ void Saturday()
     randomPrice(mk, 50.00, 100.00);
 
     printMenu(2);
-    cout << "*Current MK is: " << mk << endl;
+    cout << "* Current MK is: " << mk << endl;
     getInt(input, 2, 0, 6, "Add item or press 0 to finish: ");
 
     while (input != 0)
@@ -344,6 +346,8 @@ void Saturday()
         getInt(input, 2, 0, 6, "Add more or press 0 to finish: ");
     }
 
+    cout << "\n\n";
+
     printBill(total, 2);
 }
 
@@ -355,7 +359,7 @@ void Sunday()
     randomPrice(mk, 50.00, 100.00);
 
     printMenu(3);
-    cout << "*Current MK is: " << mk << endl;
+    cout << "* Current MK is: " << mk << endl;
     getInt(input, 3, 1, 6);
 
     cout << "You selected: " << input << endl;
