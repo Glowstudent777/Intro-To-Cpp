@@ -18,8 +18,14 @@ using namespace std;
 string errormsg = "There was an error. Please try again.";
 
 // Vector lets us store the order without knowing the size of the array ahead of time.
+// Chapter 7.11 of the book
 vector<int> order;
+
 // Map lets us store the count of each item ordered.
+// Maps are very useful but a bit confusing in C++
+// https://en.cppreference.com/w/cpp/container/map
+// https://cplusplus.com/reference/map/map/
+// Chapter 17 of the book
 map<int, int> itemCount;
 
 // Let the other functions see these before the full logic function is implemented.
@@ -70,21 +76,25 @@ void randomPrice(float &price, float min, float max)
     price = floorf(dis(gen) * 100) / 100;
 }
 
+// todo: Add prices to the bill:
+// 3 Fish                $89.97
+// 2 Sirlion Steak       $89.98
+// ----------------------------
 void printBill(float total, int menu)
 {
 
     float tax = total * 0.0825;
     tax = floorf(tax * 100) / 100;
 
-    // Maps are very useful but a bit confusing in C++
-    // https://en.cppreference.com/w/cpp/container/map
-    // https://cplusplus.com/reference/map/map/
     for (int item : order)
     {
         itemCount[item]++;
     }
 
-    cout << "--------------------------------" << endl;
+    cout << "\n";
+    cout << "Thank you for dining with us!" << endl;
+    cout << "Here's your bill:" << endl;
+    cout << "\n";
 
     // Show number of each item ordered
     for (const auto &entry : itemCount)
@@ -95,22 +105,22 @@ void printBill(float total, int menu)
             switch (entry.first)
             {
             case 1:
-                cout << "Fish: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Fish" << endl;
                 break;
             case 2:
-                cout << "Sirlion Steak: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Sirlion Steak" << endl;
                 break;
             case 3:
-                cout << "King Crab: " << entry.second << " ordered" << endl;
+                cout << entry.second << " King Crab" << endl;
                 break;
             case 4:
-                cout << "Water: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Water" << endl;
                 break;
             case 5:
-                cout << "Wine: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Wine" << endl;
                 break;
             case 6:
-                cout << "Beer: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Beer" << endl;
                 break;
             default:
                 cout << "Unknown item ordered" << endl;
@@ -121,22 +131,22 @@ void printBill(float total, int menu)
             switch (entry.first)
             {
             case 1:
-                cout << "Lobster: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Lobster" << endl;
                 break;
             case 2:
-                cout << "Ribeye: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Ribeye" << endl;
                 break;
             case 3:
-                cout << "3oz Wagyu Beef: " << entry.second << " ordered" << endl;
+                cout << entry.second << " 3oz Wagyu Beef" << endl;
                 break;
             case 4:
-                cout << "Water: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Water" << endl;
                 break;
             case 5:
-                cout << "Wine: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Wine" << endl;
                 break;
             case 6:
-                cout << "Old Fashioned: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Old Fashioned" << endl;
                 break;
             default:
                 cout << "Unknown item ordered" << endl;
@@ -147,22 +157,22 @@ void printBill(float total, int menu)
             switch (entry.first)
             {
             case 1:
-                cout << "Smoked Ribs: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Smoked Ribs" << endl;
                 break;
             case 2:
-                cout << "Lobster: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Lobster" << endl;
                 break;
             case 3:
-                cout << "Filet Mignon: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Filet Mignon" << endl;
                 break;
             case 4:
-                cout << "Water: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Water" << endl;
                 break;
             case 5:
-                cout << "Wine: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Wine" << endl;
                 break;
             case 6:
-                cout << "Rip Van Winkle: " << entry.second << " ordered" << endl;
+                cout << entry.second << " Rip Van Winkle" << endl;
                 break;
             default:
                 cout << "Unknown item ordered" << endl;
@@ -172,6 +182,7 @@ void printBill(float total, int menu)
         }
     }
 
+    cout << setprecision(2) << fixed;
     cout << "--------------------------------" << endl;
     cout << "Subtotal: $" << total << endl;
     cout << "Tax:      $" << tax << endl;
@@ -296,7 +307,43 @@ void Weekdays()
     cout << "* Current MK is: " << mk << endl;
     getInt(input, 1, 1, 6);
 
-    cout << "You selected: " << input << endl;
+    while (input != 0)
+    {
+        switch (input)
+        {
+        case 1:
+            total += 29.99;
+            order.push_back(1);
+            break;
+        case 2:
+            total += 44.99;
+            order.push_back(2);
+            break;
+        case 3:
+            total += mk;
+            order.push_back(3);
+            break;
+        case 4:
+            total += 1.00;
+            order.push_back(4);
+            break;
+        case 5:
+            total += 12.00;
+            order.push_back(5);
+            break;
+        case 6:
+            total += 10.00;
+            order.push_back(6);
+            break;
+        default:
+            cout << errormsg << endl;
+            break;
+        }
+
+        getInt(input, 1, 0, 6, "Add more or press 0 to finish: ");
+    }
+
+    printBill(total, 1);
 }
 
 void Saturday()
@@ -346,8 +393,6 @@ void Saturday()
         getInt(input, 2, 0, 6, "Add more or press 0 to finish: ");
     }
 
-    cout << "\n\n";
-
     printBill(total, 2);
 }
 
@@ -362,5 +407,41 @@ void Sunday()
     cout << "* Current MK is: " << mk << endl;
     getInt(input, 3, 1, 6);
 
-    cout << "You selected: " << input << endl;
+    while (input != 0)
+    {
+        switch (input)
+        {
+        case 1:
+            total += 25.00;
+            order.push_back(1);
+            break;
+        case 2:
+            total += mk;
+            order.push_back(2);
+            break;
+        case 3:
+            total += 75.00;
+            order.push_back(3);
+            break;
+        case 4:
+            total += 1.00;
+            order.push_back(4);
+            break;
+        case 5:
+            total += 12.00;
+            order.push_back(5);
+            break;
+        case 6:
+            total += 44.99;
+            order.push_back(6);
+            break;
+        default:
+            cout << errormsg << endl;
+            break;
+        }
+
+        getInt(input, 2, 0, 6, "Add more or press 0 to finish: ");
+    }
+
+    printBill(total, 3);
 }
