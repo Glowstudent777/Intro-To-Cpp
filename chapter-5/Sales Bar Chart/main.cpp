@@ -36,7 +36,7 @@ int main()
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            // If the input is large enough it says it is negative so we can use a generic error message instead of checking for both instead.
+
             cout << "Invalid input. Please re-enter: ";
             cin >> storeSales[i - 1];
         }
@@ -48,10 +48,25 @@ int main()
     for (int i = 1; i <= 5; i++)
     {
         cout << "Store " << i << ": ";
+
+        if (storeSales[i - 1] >= 1250)
+        {
+            cout << "\033[1;32m"; // Green
+        }
+        else if (storeSales[i - 1] >= 900)
+        {
+            cout << "\033[1;33m"; // Yellow
+        }
+        else
+        {
+            cout << "\033[1;31m"; // Red
+        }
+
         for (int j = 0; j < storeSales[i - 1] / 100; j++)
         {
             cout << "*";
         }
+        cout << "\033[0m"; // Reset color
         cout << endl;
     }
 
