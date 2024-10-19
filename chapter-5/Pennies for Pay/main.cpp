@@ -1,21 +1,46 @@
 /*****
-* Author: Glowstudent
-* Program: Template
-*****/
+ * Author: Glowstudent
+ * Program: Pennies for Pay
+ *****/
 
 #include <iostream>
-#include <string>
+#include <iomanip>
+#include <limits>
 
 using namespace std;
 
 int main()
 {
-    string name;
-    
-    cout << "Enter your name: ";
-    getline(cin, name);
+    int days;
+    double nextDayPay = 0.01, totalPay = 0.00;
 
-    cout << "Hello, " << name << "!" << endl;
+    cout << "Enter the number of days you worked: ";
+    cin >> days;
 
-	return 0;
+    while (days <= 0 || cin.fail())
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        cout << "The number of days must be at least 1." << endl;
+        cout << "Enter the number of days you worked: ";
+        cin >> days;
+    }
+
+    cout << endl;
+
+    cout << "Day\t\tPay" << endl;
+    cout << "----------------------" << endl;
+
+    for (int i = 1; i <= days; i++)
+    {
+        cout << i << "\t\t$" << fixed << setprecision(2) << nextDayPay << endl;
+        totalPay += nextDayPay;
+        nextDayPay *= 2;
+    }
+
+    cout << endl;
+    cout << "Total pay: $" << fixed << setprecision(2) << totalPay << endl;
+
+    return 0;
 }
