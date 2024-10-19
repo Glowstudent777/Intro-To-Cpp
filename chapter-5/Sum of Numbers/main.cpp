@@ -8,9 +8,23 @@
 
 using namespace std;
 
+void clearScreen()
+{
+    // Clear the screen
+#if defined(_WIN32) || defined(_WIN64)
+    system("cls");
+#elif defined(__linux__)
+    system("clear");
+#elif defined(__APPLE__)
+    system("clear");
+#endif
+}
+
 int main()
 {
     int input, sum = 0;
+
+    clearScreen();
 
     cout << "Enter a positive integer value: ";
     cin >> input;
