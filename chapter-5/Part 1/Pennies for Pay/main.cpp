@@ -6,6 +6,7 @@
 #include <iostream>
 #include <iomanip>
 #include <limits>
+#include <locale>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ int main()
     cout << "Day\t\tPay" << endl;
     cout << "----------------------" << endl;
 
+    cout.imbue(locale(""));
     for (int i = 1; i <= days; i++)
     {
         cout << i << "\t\t$" << fixed << setprecision(2) << nextDayPay << endl;
