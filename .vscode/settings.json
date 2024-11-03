@@ -52,6 +52,9 @@
         "xutility": "cpp",
         "random": "cpp",
         "vector": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "xtree": "cpp",
+        "set": "cpp",
+        "unordered_map": "cpp"
     }
 }
