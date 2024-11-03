@@ -1,21 +1,42 @@
 /*****
  * Author: Glowstudent
- * Program: Template
+ * Program: Student Line Up
  *****/
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <set>
 
 using namespace std;
 
 int main()
 {
-    string name;
+    ifstream inFile;
+    string s;
+    set<string> students;
 
-    cout << "Enter your name: ";
-    getline(cin, name);
+    inFile.open("LineUp.txt");
 
-    cout << "Hello, " << name << "!" << endl;
+    if (!inFile)
+    {
+        cout << "Error opening file." << endl;
+        return 1;
+    }
+
+    while (getline(inFile, s) && s != "")
+    {
+        students.insert(s);
+    }
+    inFile.close();
+
+    cout << "There are " << students.size() << " students in the file." << endl;
+
+    cout << "\nThe students in the file are: " << endl;
+    for (auto student : students)
+    {
+        cout << student << endl;
+    }
 
     return 0;
 }
