@@ -16,13 +16,37 @@ using namespace std;
 // List from https://geojango.com/pages/list-of-nhl-teams
 const set<string> teams = {"Anaheim Ducks", "Arizona Coyotes", "Boston Bruins", "Buffalo Sabres", "Calgary Flames", "Carolina Hurricanes", "Chicago Blackhawks", "Colorado Avalanche", "Columbus Blue Jackets", "Dallas Stars", "Detroit Red Wings", "Edmonton Oilers", "Florida Panthers", "Los Angeles Kings", "Minnesota Wild", "Montreal Canadiens", "Nashville Predators", "New Jersey Devils", "New York Islanders", "New York Rangers", "Ottawa Senators", "Philadelphia Flyers", "Pittsburgh Penguins", "San Jose Sharks", "Seattle Kraken", "St. Louis Blues", "Tampa Bay Lightning", "Toronto Maple Leafs", "Vancouver Canucks", "Vegas Golden Knights", "Washington Capitals", "Winnipeg Jets"};
 const unordered_map<string, vector<string>> prefixMap = {
-    {"NEW YORK", {"NY"}},
+    {"ANAHEIM", {}},
+    {"ARIZONA", {"AZ"}},
+    {"BOSTON", {}},
+    {"BUFFALO", {}},
+    {"CALGARY", {"AB"}},
+    {"CAROLINA", {"NC"}},
+    {"CHICAGO", {}},
+    {"COLORADO", {"CO"}},
+    {"COLUMBUS", {}},
+    {"DALLAS", {"TX"}},
+    {"DETROIT", {}},
+    {"EDMONTON", {"AB"}},
+    {"FLORIDA", {"FL"}},
     {"LOS ANGELES", {"LA"}},
-    {"ST. LOUIS", {"ST LOUIS", "SAINT LOUIS", "SL"}},
+    {"MINNESOTA", {"MN"}},
+    {"MONTREAL", {"QC"}},
+    {"NASHVILLE", {"TN"}},
     {"NEW JERSEY", {"NJ"}},
+    {"NEW YORK", {"NY"}},
+    {"OTTAWA", {"ON"}},
+    {"PHILADELPHIA", {"PHILLY", "PA"}},
+    {"PITTSBURGH", {"PITTS", "PA"}},
     {"SAN JOSE", {"SJ"}},
-    {"VEGAS", {"LOS VEGAS"}},
-    {"TAMPA BAY", {"TAMPA", "TB"}}};
+    {"SEATTLE", {"WA"}},
+    {"ST. LOUIS", {"ST LOUIS", "SAINT LOUIS", "SL"}},
+    {"TAMPA BAY", {"TAMPA", "TB"}},
+    {"TORONTO", {"ON"}},
+    {"VANCOUVER", {"BC"}},
+    {"VEGAS", {"LAS VEGAS", "LOS VEGAS", "NV"}},
+    {"WASHINGTON", {"DC"}},
+    {"WINNIPEG", {"MANITOBA", "MB"}}};
 const string sentinel = "END";
 set<string> userTeams = {};
 ofstream outFile;
@@ -40,7 +64,7 @@ string stripPrefix(string input)
     // EX: ["NEW YORK", {"NY"}]
     for (const auto &[fullPrefix, abbreviations] : prefixMap)
     {
-        if (inputUpper.rfind(fullPrefix, 0) == 0)
+        if (inputUpper.find(fullPrefix + " ") == 0)
         {
             return input.substr(fullPrefix.size() + 1);
         }
@@ -50,26 +74,13 @@ string stripPrefix(string input)
         // First loop checks for "ST LOUIS", second loop checks for "SAINT LOUIS", third loop checks for "SL", etc.
         for (const string &abbr : abbreviations)
         {
-            if (inputUpper.rfind(abbr, 0) == 0)
+            if (inputUpper.find(abbr + " ") == 0 || inputUpper == abbr)
             {
                 return input.substr(abbr.size() + 1);
             }
         }
     }
 
-    // Similar to the loops above, but much simpler.
-    // This takes the teams set and loops through each and assigns the value to the variable team.
-    // auto should be the type of string.
-    for (const auto &team : teams)
-    {
-        string nickname = team.substr(team.find_first_of(" \t") + 1);
-        if (toUpper(input) == toUpper(nickname))
-        {
-            return team;
-        }
-    }
-
-    // If no prefix is found, return the input. This lets us enter "Blues" instead of "St. Louis Blues"
     return input;
 }
 
