@@ -55,6 +55,13 @@
         "fstream": "cpp",
         "xtree": "cpp",
         "set": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "list": "cpp",
+        "xhash": "cpp",
+        "algorithm": "cpp",
+        "map": "cpp",
+        "optional": "cpp",
+        "sstream": "cpp",
+        "functional": "cpp"
     }
 }
