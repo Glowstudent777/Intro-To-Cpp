@@ -7,8 +7,22 @@
 #include <string>
 #include <limits>
 #include "consoleUtils.h"
+#include <fstream>
+#include <set>
 
 using namespace std;
+
+void printMenu(int menu);
+void getRandomName(string &rname);
+void playGame();
+void mainMenu();
+void exitGame();
+
+void exitGame()
+{
+    cout << "Goodbye!" << endl;
+    exit(0);
+}
 
 void printMenu(int menu)
 {
@@ -30,7 +44,90 @@ void printMenu(int menu)
     }
 }
 
-int main()
+void getRandomName(string &rname)
+{
+    ifstream inFile;
+    string s, name;
+    int count = 0, random;
+    set<string> names;
+
+    inFile.open("names.txt");
+    if (!inFile)
+    {
+        cout << "Error opening file." << endl;
+        return;
+    }
+
+    while (getline(inFile, s))
+    {
+        if (s == "")
+            continue;
+
+        count++;
+        names.insert(s);
+    }
+    inFile.close();
+
+    randomInt(random, 1, count);
+
+    rname = *next(names.begin(), random - 1);
+    names.erase(names.begin());
+
+    return;
+}
+
+void playGame()
+{
+    string name, guess;
+    int attempts = 0;
+
+    clearScreen();
+    getRandomName(name);
+
+    cout << "Welcome to the Guessing Game!" << endl;
+    cout << "I have a name in mind. Can you guess it?" << endl;
+    cout << "You have 10 tries to guess the name." << endl;
+    cout << endl;
+
+    cout << "[DEBUG] The name is: " << name << endl;
+
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    do
+    {
+        cout << "Enter your guess (" << (10 - attempts) << (attempts != 9 ? " tries" : " try") << " left): ";
+        getline(cin, guess);
+        attempts++;
+    } while (toUpper(guess) != toUpper(name) && attempts < 10);
+
+    cout << endl;
+
+    if (toUpper(guess) == toUpper(name))
+    {
+        cout << "Congratulations! You guessed the name in " << attempts << (attempts != 1 ? " tries!" : " try!") << endl;
+    }
+    else
+    {
+        cout << "Sorry, you did not guess the name." << endl;
+        cout << "The name was: " << name << endl;
+    }
+
+    cout << "Play again? (Y/N): ";
+
+    char playAgain;
+    cin >> playAgain;
+
+    if (toupper(playAgain) == 'Y')
+    {
+        playGame();
+    }
+    else
+    {
+        mainMenu();
+    }
+}
+
+void mainMenu()
 {
     const int menu = 0;
     int choice;
@@ -38,7 +135,27 @@ int main()
     printMenu(menu);
     getInt_Menu(choice, menu, &printMenu, 1, 4, "", true);
 
-    cout << "You chose: " << choice << endl;
+    switch (choice)
+    {
+    case 1:
+        playGame();
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        cout << "Goodbye!" << endl;
+        exitGame();
+        break;
+    default:
+        break;
+    }
+}
+
+int main()
+{
+    mainMenu();
 
     return 0;
 }

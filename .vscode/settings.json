@@ -62,6 +62,7 @@
         "map": "cpp",
         "optional": "cpp",
         "sstream": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "unordered_set": "cpp"
     }
 }

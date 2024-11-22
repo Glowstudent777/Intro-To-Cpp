@@ -6,6 +6,7 @@
 #include <sstream>
 #include <limits>
 #include <functional>
+#include <random>
 
 enum class Alignment
 {
@@ -135,6 +136,15 @@ void getInt(int &input, std::string cmessage = "", int min = '\0', int max = '\0
         std::cout << "Invalid Input. Please enter a valid input: ";
         std::cin >> input;
     }
+}
+
+void randomInt(int &var, int min = 1, int max = 100)
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(min, max);
+
+    var = floorf(dis(gen) * 100) / 100;
 }
 
 #endif
