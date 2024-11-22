@@ -84,7 +84,7 @@ void playGame()
     clearScreen();
     getRandomName(name);
 
-    cout << "Welcome to the Guessing Game!" << endl;
+    cout << "Welcome to the Guessing Game, the theme is Sesame Street & Muppets!" << endl;
     cout << "I have a name in mind. Can you guess it?" << endl;
     cout << "You have 10 tries to guess the name." << endl;
     cout << endl;
