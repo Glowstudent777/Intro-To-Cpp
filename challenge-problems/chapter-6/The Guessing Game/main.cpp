@@ -49,7 +49,7 @@ void getRandomName(string &rname)
     ifstream inFile;
     string s, name;
     int count = 0, random;
-    set<string> names;
+    vector<string> names;
 
     inFile.open("names.txt");
     if (!inFile)
@@ -64,14 +64,14 @@ void getRandomName(string &rname)
             continue;
 
         count++;
-        names.insert(s);
+        names.push_back(s);
     }
     inFile.close();
 
     randomInt(random, 1, count);
 
-    rname = *next(names.begin(), random - 1);
-    names.erase(names.begin());
+    rname = (names[random - 1]);
+    normalizeString(rname);
 
     return;
 }
@@ -96,7 +96,10 @@ void playGame()
     do
     {
         cout << "Enter your guess (" << (10 - attempts) << (attempts != 9 ? " tries" : " try") << " left): ";
+
         getline(cin, guess);
+        normalizeString(guess);
+
         attempts++;
     } while (toUpper(guess) != toUpper(name) && attempts < 10);
 

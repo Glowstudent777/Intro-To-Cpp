@@ -147,4 +147,21 @@ void randomInt(int &var, int min = 1, int max = 100)
     var = floorf(dis(gen) * 100) / 100;
 }
 
+void normalizeString(std::string &str)
+{
+    std::string temp;
+    bool first = true;
+
+    for (int i = 0; i < str.length(); i++)
+    {
+        if ((str[i + 1] == ' ' && str[i] == ' ') || (first && str[i] == ' ') || (!str[i + 1] && str[i] == ' '))
+            continue;
+
+        temp += str[i];
+        first = false;
+    }
+
+    str = temp;
+}
+
 #endif
