@@ -134,7 +134,7 @@ void writeWinners(string name)
         vector<string> data = splitString(s, ',');
         if (data[0] == name)
         {
-            data[1] = stoi(data[1]) + 1;
+            data[1] = to_string(stoi(data[1]) + 1);
         }
 
         winners[data[0]] = stoi(data[1]);
@@ -214,8 +214,8 @@ void viewAttempts()
         fullLine(40, '*');
         printText(append_string("Wins: ", to_string(wins)), 40, Alignment::left, 4);
         printText(append_string("Losses: ", to_string(losses)), 40, Alignment::left, 4);
-        printText(append_string("Total Attempts: ", to_string(totalAttempts)), 40, Alignment::left, 4);
-        printText(append_string("Average Attempts: ", stringPrecision(((double)totalAttempts / attempts), 2)), 40, Alignment::left, 4);
+        printText(append_string("Average Guesses: ", stringPrecision(((double)totalAttempts / attempts), 2)), 40, Alignment::left, 4);
+        printText(append_string("Total Guesses: ", to_string(totalAttempts)), 40, Alignment::left, 4);
         fullLine(40, '*');
     }
 
@@ -296,7 +296,7 @@ void playGame()
     cout << "You have 10 tries to guess the name." << endl;
     cout << endl;
 
-    cout << "[DEBUG] The name is: " << name << endl;
+    // cout << "[DEBUG] The name is: " << name << endl;
 
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
