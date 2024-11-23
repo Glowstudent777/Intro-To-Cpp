@@ -378,6 +378,7 @@ void mainMenu()
 
 int main()
 {
+    setTitle("The Guessing Game");
     mainMenu();
 
     return 0;
