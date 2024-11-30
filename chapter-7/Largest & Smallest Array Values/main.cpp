@@ -29,7 +29,7 @@ void getNumbers(int count, vector<int> &vec)
             cin >> input;
         }
 
-        input += 0;
+        input += 0; // Weird bug fix
         vec.push_back(input);
     }
 }
