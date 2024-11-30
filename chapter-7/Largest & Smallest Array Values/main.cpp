@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void getNumbers(int count, vector<int> &vec)
+void getNumbers(int count, int arr[])
 {
     for (int i = 0; i < count; i++)
     {
@@ -30,20 +30,22 @@ void getNumbers(int count, vector<int> &vec)
         }
 
         input += 0; // Weird bug fix
-        vec.push_back(input);
+        arr[i] = input;
     }
 }
 
 int main()
 {
-    vector<int> values;
+    int values[10];
     int smallest, largest, count = 10;
+
+    cout << "This program will find the largest and smallest numbers in a set of 10 numbers." << endl;
 
     getNumbers(count, values);
 
-    for (int i = 1; i < count; i++)
+    for (int i = 0; i < count; i++)
     {
-        if (i == 1)
+        if (i == 0)
         {
             smallest = values[i];
             largest = values[i];

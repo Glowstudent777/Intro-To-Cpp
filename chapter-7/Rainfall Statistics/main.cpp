@@ -16,6 +16,8 @@ int main()
     double totalRainfall = 0, averageRainfall = 0, lowestRainfall = 0, highestRainfall = 0;
     int lowestMonth = 0, highestMonth = 0;
 
+    cout << "Enter the rainfall for each month for the past year." << endl;
+
     for (int j = 1; j <= 12; j++)
     {
         double rainfall;
